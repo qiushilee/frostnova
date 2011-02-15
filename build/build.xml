@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="nova" default="main">
+	<!-- 根目录 -->
+	<property name="base.dir" value="../" />
+
+	<!-- 输出目录 -->
+	<property name="build.dir" value="." />
+
+	<!-- 源文件目录 -->
+	<property name="src.dir" value="../src" />
+
+	<!-- lib 目录 -->
+	<property name="lib.dir" value="lib" />
+
+	<!-- JAR -->
+	<property name="min.js.jar" value="${lib.dir}/compiler.jar" />
+	<property name="combiner.jar" value="${lib.dir}/combiner.jar" />
+	<property name="jslint.jar" value="${lib.dir}/jslint4java-1.4.4.jar"/>  	
+
+	<target name="main">
+		<!-- 复制 JS 文件 -->
+		<copy todir="${build.dir}" overwrite="true" flatten="false">
+			<fileset dir="${src.dir}/frostnova">
+				<include name="*.js" />
+			</fileset>
+			<fileset dir="${src.dir}/load">
+				<include name="*.js" />
+			</fileset>
+			<fileset dir="${src.dir}/ajax">
+				<include name="*.js" />
+			</fileset>
+			<fileset dir="${src.dir}/dom">
+				<include name="*.js" />
+			</fileset>
+			<fileset dir="${src.dir}/ua">
+				<include name="*.js" />
+			</fileset>
+			<fileset dir="${src.dir}/event">
+				<include name="*.js" />
+			</fileset>
+			<fileset dir="${src.dir}/ui">
+				<include name="*.js" />
+			</fileset>
+		</copy>
+
+		<!-- 合并所有 JS 文件 -->
+		<apply executable="java" parallel="true" failonerror="true">
+			<fileset dir="${build.dir}" includes="*.js" />
+			<arg line="-jar" />
+			<arg path="${combiner.jar}" />
+			<arg line="--charset utf-8" />
+			<arg line="-o ${build.dir}/frostnova.js" />
+			<srcfile />
+		</apply>
+
+		<!-- 编译 JS 文件 -->
+		<apply executable="java" parallel="false" verbose="true" dest="${build.dir}">
+			<fileset dir="${build.dir}">
+				<include name="frostnova.js" />
+			</fileset>
+			<arg line="-jar" />
+			<arg path="${min.js.jar}" />
+			<arg value="--compilation_level" />
+			<arg value="SIMPLE_OPTIMIZATIONS" />
+			<arg value="--js_output_file" />
+			<targetfile />
+			<arg value="--js" />
+			<mapper type="glob" from="*.js" to="frostnova-min.js" />
+		</apply>
+
+		<delete>
+			<fileset dir="${build.dir}">
+				<include name="*.js" />
+				<exclude name="frostnova-min.js" />
+			</fileset>
+		</delete>
+	</target>
+
+	<!-- 语法检查 -->
+	<target name="js.lint">
+		<echo message="JSLinting frostnova.js"/>
+		<apply executable="java" parallel="false" failonerror="true">
+			<fileset dir="${build.dir}" includes="frostnova.js" />
+			<arg line="-jar" />
+			<arg path="${jslint.jar}" />
+			<srcfile />
+		</apply>
+	</target>
+</project>

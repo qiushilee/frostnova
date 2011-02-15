@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>nova.dom test</title>
+	</head>
+	<body>
+		<div class="mod" id="header">
+			<div class="mod">Test</div>
+			<input id="" name="" type="search" placeholder="hellow">
+		</div>
+
+		<script src="../frostnova/core.js"></script>
+		<script src="dom.js"></script>
+		<script>
+			console.log("nova.dom.addClass()");
+			console.log("before head classname: " + document.getElementById("header").className);
+			nova.dom.addClass(document.getElementById("header"), "header");
+			console.log("after head classname: " + document.getElementById("header").className);
+		</script>
+	</body>
+</html>
