@@ -1,1 +1,1 @@
-#Javascript lib
+#JavaScript lib
