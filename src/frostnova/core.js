@@ -1,32 +1,38 @@
 /**
  * @preserve FrostNova Javascript Library v0.0.1
- * http://frostnova.qslee.com/
+ * http://qslee.com/
  *
- * Copyright 2011, showbei@gmail.com
- * Code licensed under the GPL License:
- * http://frostnova.qslee.com/license
- *
- * Includes Sizzle.js
- * http://sizzlejs.com/
- * Copyright 2010, The Dojo Foundation
- * Released under the MIT, BSD, and GPL Licenses.
+ * Copyright 2011, Qiu-Shi Lee
+ * Code licensed under the MIT License:
+ * https://github.com/qiushilee/frostnova/blob/master/LICENSE.txt
  */
-var nova = nova || {};
 
-// window 的别名
-nova = {
-	/**
-	 * @const
-	 * @type {string}
-	 */
-	WIN: window,
-	version: "0.0.1"
+var nova = function() {
 };
 
 
-// 在命名空间下添加一个新的函数
-nova.mod = function(name, value) {
-	if(!nova.name) {
-		value ? nova[name] = value : nova[name] = {};
-	}
+/**
+ * window 的别名
+ * @const
+ * @type object
+ */
+nova.WIN = window;
+
+
+/**
+ * The version number
+ * @type string
+ */
+nova.version = "0.0.1";
+
+
+/**
+ * Binds a function to an Object
+ */
+nova.bind = function(fn, object) {
+	var slice = Array.prototype.slice,
+	    args  = slice.apply(arguments, [2]);
+	return function() {
+		return fn.apply(object || {}, args.concat(slice.apply(arguments)));
+	};	
 };
