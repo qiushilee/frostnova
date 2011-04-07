@@ -190,7 +190,8 @@ nova.ui.flow = function() {
 
 
 /**
- * 在页面左右两侧浮动广告
+ * 对联广告
+ * 在页面左右两侧浮动
  * 随页面滚动而滚动
  * @param number top value
  * @param array img's src
