@@ -65,103 +65,6 @@ nova.ui.tab = function(elm) {
 
 // 幻灯切换
 nova.ui.slide = function() {
-    var item = nova.dom.selector(".nova-slide .bd .item"),
-	bdCon = nova.dom.selector(".nova-slide .bd-con")[0],
-	i,
-	len,
-	setWidth,
-	clearItemClass,
-	showImg,
-	left,
-	right;
-
-
-    /*
-     * 设定小图列表容器的宽度
-     */
-    setWidth = function() {
-	for (i = 0, len = item.length; i < len; i++) {
-	    var width = nova.dom.getWidth(item[i]);
-	}
-	bdCon.style.width = width * item.length + "px";
-    };
-
-
-    /*
-     * 清除小图列表的选中class
-     */
-    clearItemClass = function() {
-	for (i = 0, len = item.length; i < len; i++) {
-	    nova.dom.removeClass(item[i], "selected");
-	}
-    };
-
-
-    /*
-     * 点击小图，显示大图
-     */
-    showImg = function() {
-	for (i = 0, len = item.length; i < len; i++) {
-	    nova.Event.add(nova.dom.selector(".nova-slide .bd .img")[i], "click", function(e) {
-		clearItemClass();
-		nova.dom.addClass(this.parentNode, "selected");
-		nova.dom.selector(".nova-slide-bigimg")[0].src = this.getAttribute("rel");
-	    });
-	}
-    };
-
-
-    /*
-     * 控制小图列表滚动方向
-     */
-    left = function() {
-	nova.Event.add(nova.dom.selector(".nova-slide-btn-left")[0], "click", function() {
-	    var mr = parseInt(nova.dom.getStyle(bdCon, "margin-right", "marginRight"), 10),
-	    left = nova.dom.getWidth(item[0]) * 3;
-
-	mr < 0 ? mr = Math.abs(mr) : mr;
-
-	// 比较 margin-left 与 .nova-slide .bd-con 的宽度
-	if (mr < nova.dom.getWidth(bdCon)) {
-	    bdCon.style.marginLeft = "-" + left + "px";
-	    left *= 2;
-	}
-	});
-    };
-
-
-    /*
-     * 控制小图列表滚动方向
-     */
-    right = function() {
-	nova.Event.add(nova.dom.selector(".nova-slide-btn-right")[0], "click", function() {
-	    var ml = parseInt(nova.dom.getStyle(bdCon, "margin-left", "marginLeft"), 10),
-	    mlNum;
-	right = nova.dom.getWidth(item[0]) * 3;
-
-	ml < 0 ? mlNum = Math.abs(ml) : mlNum = ml;
-
-	// 比较 margin-right 与 .nova-slide .bd-con 的宽度
-	if (mlNum > 0) {
-	    ml += 348;
-	    bdCon.style.marginLeft = ml + "px";
-	    //ml *= 2;
-	}
-	});
-    };
-
-
-    return function() {
-	setWidth();
-	showImg();
-	left();
-	right();
-    }();
-    /*
-       for (i = 0, len = item.length; i < len; i++) {
-       nova.log(item[i].offsetWidth);
-       }
-       */
 };
 
 
@@ -184,26 +87,111 @@ nova.ui.nav = function() {
 
 
 /**
- * 设定元素最小高度
- * Example: <div minHeight="100"></div>
+ * 在页面中四处飘浮的广告
+ * 遇到边界则改变飘浮方向
+ * @param number width element&img's width
+ * @param number height element&img's height
+ * @param string img's src
+ * @param string anchor href
  */
-nova.ui.minHeight = function() {
-    var e = nova.dom.selector("*"),
-	i,
-	len;
+nova.ui.flow = function() {
+    var doc = document,
+	html = doc.documentElement,
+	body = doc.body,
+	opt = arguments[0],
+	xPos = 300,
+	yPos = 200,
+	step = 1,
+	delay = 30,
+	height = 0,
+	Hoffset = 0,
+	Woffset = 0,
+	yon = 0,
+	xon = 0,
+	pause = true,
+	interval;
 
-    for (i = 0, len = e.length; i < len; i++) {
+    //生成广告元素
+    var elm = doc.createElement("div");
+    nova.dom.addClass(elm, "nova-ui-flow");
+    elm.innerHTML = '<a href="'+ opt.href + '"><img src="' + opt.src + '" width="' + opt.width + '" height="' + opt.height + '"></a>';
+    nova.dom.setCSS([elm], {
+	position: "absolute",
+	zIndex: "100",
+	top: yPos + "px",
+	left: "2px",
+	width: opt.width + "px",
+	height: opt.height + "px",
+	visibility: "visible"
+    });
 
-	if (e[i].getAttribute("minHeight") && e[i].offsetHeight < parseFloat(e[i].getAttribute("minHeight"))) {
-	    e[i].style.height = e[i].getAttribute("minHeight");
+    body.appendChild(elm);
+
+    var changePos = function () {
+	width = body.clientWidth;
+	height = html.clientHeight;
+
+	Hoffset = elm.offsetHeight;
+	Woffset = elm.offsetWidth;
+
+	nova.dom.setCSS([elm], {
+	    left: xPos + doc.body.scrollLeft + "px",
+	    top: yPos + doc.body.scrollTop + "px"
+	});
+
+	if (yon) {
+	    yPos = yPos + step;
+	} else {
+	    yPos = yPos - step;
 	}
-    }
+
+	if (yPos < 0) {
+	    yon = 1;
+	    yPos = 0;
+	}
+
+	if (yPos >= (height - Hoffset)) {
+	    yon = 0;
+	    yPos = (height - Hoffset);
+	}
+
+	if (xon) {
+	    xPos = xPos + step;
+	} else {
+	    xPos = xPos - step;
+	}
+
+	if (xPos < 0) {
+	    xon = 1;
+	    xPos = 0;
+	}
+
+	if (xPos >= (width - Woffset)) {
+	    xon = 0;
+	    xPos = (width - Woffset);
+	}
+    };
+
+    pause_resume = function () {
+	if(pause) {
+	    clearInterval(interval);
+	    pause = false;
+	} else {
+	    interval = setInterval(changePos, delay);
+	    pause = true; 
+	}
+    };
+
+    interval = setInterval(changePos, delay);
 };
 
 
 /**
  * 在页面左右两侧浮动广告
  * 随页面滚动而滚动
+ * @param number top value
+ * @param array img's src
+ * @param array anchor href
  */
 nova.ui.flowBox = function() {
     var win = window,

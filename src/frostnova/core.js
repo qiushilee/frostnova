@@ -1,5 +1,5 @@
 /**
- * @preserve FrostNova Javascript Library v0.0.2
+ * @preserve FrostNova Javascript Library v0.0.3
  * http://qslee.com/
  *
  * Copyright 2011, Qiu-Shi Lee
