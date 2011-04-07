@@ -172,8 +172,8 @@ nova.ui.flow = function() {
 	}
     };
 
-    pause_resume = function () {
-	if(pause) {
+    var pauseResume = function () {
+	if (pause) {
 	    clearInterval(interval);
 	    pause = false;
 	} else {
@@ -181,6 +181,9 @@ nova.ui.flow = function() {
 	    pause = true; 
 	}
     };
+
+    nova.Event.add(elm, "mouseover", pauseResume);
+    nova.Event.add(elm, "mouseout", pauseResume);
 
     interval = setInterval(changePos, delay);
 };
