@@ -1,39 +1,26 @@
 /*requires core.js*/
 /*requires load.js*/
 /*requires ajax.js*/
-/*
- * nova.dom
+/**
+ * @module nova.dom
  */
-// 命名空间
-nova.mod("dom");
+nova.dom = {};
 
 
-// 将内容插入指定元素之后
-// @param {string} 元素
-// @param {string} || {element}
-nova.dom.append = function(elt, con) {
-};
-
-
-// 检测元素是否拥有给定的 className
-// @param {string} 元素
-// @param {string} class 名称
+/**
+ * 检测元素是否拥有给定的 className
+ * @param string
+ * @param string
+ */
 nova.dom.hasClass = function(elt, cls) {
-	var eltCls = elt.className.split(" "),
-	    i,
-	    len;
-
-	for (i = 0, len = eltCls.length; i < len; i++) {
-		if (eltCls[i] === cls) {
-			return true;
-		}
-	}
 };
 
 
-// 添加一个 classname
-// @param {string} 元素
-// @param {string} class 名称
+/**
+ * 添加一个 classname
+ * @param string
+ * @param string
+ */
 nova.dom.addClass = function(elt, cls) {
 	if (!nova.dom.hasClass(elt, cls)) {
 		elt.className === "" ? elt.className = cls : elt.className += " " +cls;
@@ -41,17 +28,21 @@ nova.dom.addClass = function(elt, cls) {
 };
 
 
-// 删除一个 classname
-// @param {string} 元素
-// @param {string} class 名称
+/**
+ * 删除一个 classname
+ * @param string} 元素
+ * @param string} class 名称
+ */
 nova.dom.removeClass = function(elt, cls) {
 	elt.className = elt.className.replace(cls, "");
 };
 
 
-// 获取元素的样式
-// @param {string} 元素
-// @param {string} 样式属性，示例："margin-left"
+/**
+ * 获取元素的样式
+ * @param string
+ * @param string
+ */
 nova.dom.getStyle = function(elt, styleProp, stylePropIE) {
 	if (elt.currentStyle) {
 		// IE
@@ -63,13 +54,10 @@ nova.dom.getStyle = function(elt, styleProp, stylePropIE) {
 };
 
 
-// 设置样式
-nova.dom.setCss = function() {
-};
-
-
-// 获取元素的宽度
-// @param {string} 元素
+/**
+ * 获取元素的宽度
+ * @param {string} 元素
+ */
 nova.dom.getWidth = function(elt) {
 	var left,
 	    right;
@@ -78,4 +66,28 @@ nova.dom.getWidth = function(elt) {
 	right = parseInt(nova.dom.getStyle(elt, "margin-right", "marginRight"), 10);
 
 	return elt.offsetWidth + left + right;
+};
+
+
+/**
+ * Batch set element's css
+ * nova.dom.setStyle({
+ * 	elm: "",
+ * 	css: {
+ * 		"width": "10px",
+ * 		"height": "20px"
+ * 	}
+ * })
+ */
+nova.dom.setCSS = function(elm, styles) {
+    var setStyle = function(prop, val) {
+	for (var i = 0, len = elm.length; i < len; i++) {
+	    elm[i].style[prop] = val;
+	}
+    };
+
+    for (var prop in styles) {
+	if (!styles.hasOwnProperty(prop)) continue;
+	setStyle(prop, styles[prop]);
+    }
 };
