@@ -32,7 +32,7 @@ nova.WIN = window;
  * The version number
  * @type string
  */
-nova.version = "0.0.1";
+nova.version = "0.0.3";
 
 
 /**
