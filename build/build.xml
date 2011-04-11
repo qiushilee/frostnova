@@ -18,7 +18,7 @@
     <property name="jslint.jar" value="${lib.dir}/jslint4java-1.4.4.jar"/>  	
 
     <target name="main">
-	<!-- 删除原来存在的打包文件 -->
+	<!-- delecte old compile file -->
 	<delete>
 	    <fileset dir="${build.dir}">
 		<include name="*.js" />
