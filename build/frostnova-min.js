@@ -1,12 +1,12 @@
 /*
- FrostNova Javascript Library v0.3.2
+ FrostNova Javascript Library v0.3.3
  http://qslee.com/
 
  Copyright 2011, Qiu-Shi Lee
  Code licensed under the MIT License:
  https://github.com/qiushilee/frostnova/blob/master/LICENSE.txt
 */
-var nova=function(){return nova.init.apply(nova,arguments)};nova.init=function(){return new nova.domChain.init(selector)};nova.WIN=window;nova.version="0.3.2";nova.bind=function(a,b){var d=Array.prototype.slice,c=d.apply(arguments,[2]);return function(){return a.apply(b||{},c.concat(d.apply(arguments)))}};nova.isArray=function(){};nova.isString=function(){};nova.isNubmer=function(){};nova.load={};
+var nova=function(){return nova.init.apply(nova,arguments)};nova.init=function(){return new nova.domChain.init(selector)};nova.WIN=window;nova.version="0.3.3";nova.bind=function(a,b){var d=Array.prototype.slice,c=d.apply(arguments,[2]);return function(){return a.apply(b||{},c.concat(d.apply(arguments)))}};nova.isArray=function(){};nova.isString=function(){};nova.isNubmer=function(){};nova.load={};
 nova.load=function(a,b){var d=document.createElement("script");d.src=a;d.onloadDone=false;d.onload=function(){d.onloadDone=true;b()};d.onreadystatechange=function(){if(d.readyState==="loaded"||d.readyState==="complete"&&!d.onloadDone){d.onloadDone=true;b()}};document.body.appendChild(d)};nova.ajax={};nova.ajax.XMLHttpFactories=[function(){return new XMLHttpRequest},function(){return new ActiveXObject("Msxml2.XMLHTTP")},function(){return new ActiveXObject("Msxml3.XMLHTTP")},function(){return new ActiveXObject("Microsoft.XMLHTTP")}];
 nova.ajax.createXMLHTTPObject=function(){for(var a=false,b=0;b<nova.ajax.XMLHttpFactories.length;b++){try{a=nova.ajax.XMLHttpFactories[b]()}catch(d){continue}break}return a};
 nova.ajax.sendRequest=function(a,b,d){var c=nova.ajax.createXMLHTTPObject();if(c){c.open(d?"POST":"GET",a,true);c.setRequestHeader("User-Agent","XMLHTTP/1.0");d&&c.setRequestHeader("Content-type","application/x-www-form-urlencoded");c.onreadystatechange=function(){if(c.readyState==4)c.status!=200&&c.status!=304||b(c)};c.readyState!=4&&c.send(d)}};nova.ajax.get=function(a,b){return nova.ajax.sendRequest(a,b,"GET")};nova.ajax.post=function(a,b){return nova.ajax.sendRequest(a,b,"POST")};nova.dom={};
