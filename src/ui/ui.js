@@ -219,14 +219,38 @@ nova.ui.flowBox = function() {
     //添加元素
     var box = doc.createElement("div"),
 	boxFirst = doc.createElement("div"),
-	boxSecond = doc.createElement("div");
+	boxSecond = doc.createElement("div"),
+	boxFirstBtn = "",
+	boxSecondBtn = "";
+
+    //关闭按钮
+    if (opt.close) {
+	boxFirstBtn = doc.createElement("span");
+	boxSecondBtn = doc.createElement("span");
+
+	nova.dom.setCSS([boxFirstBtn, boxSecondBtn], {
+	    display: "inline-block",
+	    width: "32px",
+	    cursor: "pointer"
+	});
+
+	boxFirstBtn.innerHTML = '关闭';
+	boxSecondBtn.innerHTML = '关闭';
+    }
 
     box.className = "nova-flow-box";
     boxFirst.className = "nfb-first";
     boxSecond.className = "nfb-second";
 
-    boxFirst.innerHTML = '<a href="' + opt.href[0] + '"><img src="' + opt.src[0] + '"></a>';
-    boxSecond.innerHTML = '<a href="' + opt.href[1] + '"><img src="' + opt.src[1] + '"></a>';
+    boxFirst.innerHTML = '<a href="' + opt.href[0] + '" style="display:block;"><img src="' + opt.src[0] + '"></a>';
+    boxSecond.innerHTML = '<a href="' + opt.href[1] + '" style="display:block;"><img src="' + opt.src[1] + '"></a>';
+
+    nova.dom.setCSS([boxFirst, boxSecond], {
+	    textAlign: "center"
+    });
+
+    boxFirst.appendChild(boxFirstBtn);
+    boxSecond.appendChild(boxSecondBtn);
 
     nova.dom.setCSS([box, boxSecond], {
 	position: "absolute",
@@ -240,6 +264,17 @@ nova.ui.flowBox = function() {
     box.appendChild(boxFirst);
     box.appendChild(boxSecond);
     doc.body.appendChild(box);
+
+    //关闭广告事件
+    var closeHandl = function(e) {
+	e = e || win.event;
+	var target = e.target || e.srcElement;
+
+	target.parentNode.innerHTML = "";
+    };
+
+    nova.Event.add(boxFirstBtn, "click", closeHandl);
+    nova.Event.add(boxSecondBtn, "click", closeHandl);
 
     //在IE下DOM还未onload的时候图片会很小
     //导致left值计算错误
