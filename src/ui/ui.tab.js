@@ -12,8 +12,8 @@
  */
 nova.ui.tab = function(elm) {
     var elt = elm || ".nova-tab",
-	hd = nova.dom.selector(elt + ">.hd")[0].getElementsByTagName("li"),
-	bd = nova.dom.selector(elt + ">.bd")[0].getElementsByTagName("li"),
+	hd = nova.dom.selector(".item", nova.dom.selector(elt + " .hd")[0]),
+	bd = nova.dom.selector(".item", nova.dom.selector(elt + " .bd")[0]),
 	init,
 	hidden,
 	toggle,
@@ -23,6 +23,7 @@ nova.ui.tab = function(elm) {
 
     hidden = function() {
 	for (i = 0, len = bd.length; i < len; i++) {
+	    console.log(bd[i]);
 	    nova.dom.removeClass(hd[i], "selected");
 	    nova.dom.addClass(bd[i], "hidden");
 	}
