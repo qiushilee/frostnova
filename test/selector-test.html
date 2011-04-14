@@ -24,6 +24,20 @@
 		<script src="../src/dom/dom.js"></script>
 		<script src="../src/dom/selector.js"></script>
 
-		<script src="selector-test.js"></script>
+                <script>
+                    console.log(nova.dom.selector("#header"));
+                    console.log(nova.dom.selector("div"));
+                    console.log(nova.dom.selector(".title"));
+                    console.log(nova.dom.selector(".title"));
+
+                    console.log("selector > ", nova.dom.selector(".mod>div"));
+
+                    var elms = nova.dom.selector(".mod>div");
+                    for (var i = 0, len = elms.length; i < len; i++) {
+                        nova.dom.setCSS([elms[i]], {
+                            backgroundColor: "#000"
+                        });
+                    }
+                </script>
 	</body>
 </html>
