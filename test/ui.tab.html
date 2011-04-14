@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>test ui.tab()</title>
+        <style type="text/css">
+            .hidden {
+                display:none;
+            }
+            .mod-tab .hd {
+                overflow:hidden;
+            }
+            .mod-tab .hd .item {
+                float:left;
+                margin-left:10px;
+            }
+            .mod-tab .selected .btn {
+                color:#f00;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="nova-tab mod-tab">
+            <ul class="hd">
+                <li class="item">
+                    <a href="#_" class="btn">the first title</a>
+                </li>
+                <li class="item">
+                    <a href="#_" class="btn">the second title</a>
+                </li>
+                <li class="item">
+                    <a href="#_" class="btn">the third title</a>
+                </li>
+            </ul>
+            <ul class="bd">
+                <li class="item">
+                    <div class="con">the first content</div>
+                </li>
+                <li class="item">
+                    <div class="con">the second content</div>
+                </li>
+                <li class="item">
+                    <div class="con">the third content</div>
+                </li>
+            </ul>
+        </div>
+
+        <script src="../src/frostnova/core.js"></script>
+        <script src="../src/dom/dom.js"></script>
+        <script src="../src/dom/selector.js"></script>
+        <script src="../src/event/event.js"></script>
+        <script src="../src/ui/ui.js"></script>
+        <script src="../src/ui/ui.tab.js"></script>
+        <script>
+            var modTab = new nova.ui.tab();
+        </script>
+    </body>
+</html>
