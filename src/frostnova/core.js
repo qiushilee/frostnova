@@ -1,5 +1,5 @@
 /**
- * @preserve FrostNova Javascript Library v0.3.3
+ * @preserve FrostNova Javascript Library v0.4.3
  * http://qslee.com/
  *
  * Copyright 2011, Qiu-Shi Lee
@@ -32,7 +32,7 @@ nova.WIN = window;
  * The version number
  * @type string
  */
-nova.version = "0.3.3";
+nova.version = "0.4.3";
 
 
 /**
