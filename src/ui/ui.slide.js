@@ -5,8 +5,12 @@
 /*requires selector.js*/
 /*requires ua.js*/
 /*requires event.js*/
+/*requires ui.js*/
+/*requires ui.tab.js*/
 /**
- * nova.ui
+ * nova.ui.slide
+ * 幻灯切换
  */
-nova.ui = {};
+nova.ui.slide = function() {
+};
 
