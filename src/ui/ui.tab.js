@@ -23,7 +23,6 @@ nova.ui.tab = function(elm) {
 
     hidden = function() {
 	for (i = 0, len = bd.length; i < len; i++) {
-	    console.log(bd[i]);
 	    nova.dom.removeClass(hd[i], "selected");
 	    nova.dom.addClass(bd[i], "hidden");
 	}
