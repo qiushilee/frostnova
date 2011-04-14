@@ -12,14 +12,13 @@
  */
 nova.ui.tab = function(elm) {
     var elt = elm || ".nova-tab",
-	hd = nova.dom.selector(".item", nova.dom.selector(elt + " .hd")[0]),
-	bd = nova.dom.selector(".item", nova.dom.selector(elt + " .bd")[0]),
+	hd = nova.dom.selector(".item", nova.dom.selector(elt + ">.hd")[0]),
+	bd = nova.dom.selector(".item", nova.dom.selector(elt + ">.bd")[0]),
 	init,
 	hidden,
 	toggle,
 	i,
 	len;
-
 
     hidden = function() {
 	for (i = 0, len = bd.length; i < len; i++) {
