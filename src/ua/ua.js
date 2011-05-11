@@ -101,5 +101,13 @@ nova.ua = function(){
 	browser.push("ua-opera" + nova.ua.opera);
     }
 
-    nova.dom.addClass(nova.dom.selector("html")[0], browser.join(" "));
+    //Add class to <html>
+    var html = document.documentElement,
+        htmlClass = html.className;
+
+    if (htmlClass === "") {
+	html.className = browser.join(" ");
+    } else {
+	html.className += " " + browser.join(" ");
+    }
 })();
