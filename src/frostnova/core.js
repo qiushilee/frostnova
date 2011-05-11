@@ -21,14 +21,6 @@ nova.init = function() {
 
 
 /**
- * window 的别名
- * @const
- * @type object
- */
-nova.WIN = window;
-
-
-/**
  * The version number
  * @type string
  */

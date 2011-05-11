@@ -38,11 +38,11 @@ nova.Event.add = function(obj, type, fn) {
  * @param {string} 回调函数
  */
 nova.Event.remove = function() {
-    if (nova.WIN.removeEventListener) {
+    if (window.removeEventListener) {
 	return function(elt, type, fn, capture) {
 	    elt.removeEventListener(type, fn, !! capture);
 	};
-    } else if (nova.WIN.detachEvent) {
+    } else if (window.detachEvent) {
 	return function(elt, type, fn) {
 	    elt.detachEvent("on" + type, fn);
 	};

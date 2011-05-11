@@ -56,7 +56,7 @@ nova.dom.getStyle = function(elt, styleProp, stylePropIE) {
     if (elt.currentStyle) {
 	// IE
 	return elt.currentStyle[stylePropIE];
-    } else if (nova.WIN.getComputedStyle) {
+    } else if (window.getComputedStyle) {
 	// gecko
 	return document.defaultView.getComputedStyle(elt,null).getPropertyValue(styleProp);
     }

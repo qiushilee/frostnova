@@ -11,7 +11,7 @@ nova.ua = {};
 
 nova.ua = function(){
     var i, len,
-	ua = nova.WIN.navigator.userAgent,
+	ua = window.navigator.userAgent,
 	numberify, o;
 
     numberify = function(s) {
