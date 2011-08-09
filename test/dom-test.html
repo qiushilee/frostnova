@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>test core.js</title>
+	</head>
+	<body class="hi test ok">
+	    <h1 id="btn0">DOM Class</h1>
+	    <h1 id="btn1">DOM Class</h1>
+		<script src="../src/frostnova/core.js"></script>
+		<script src="../src/dom/dom.js"></script>
+		<script>
+		    var btn0 = document.getElementById('btn0');
+		    var btn1 = document.getElementById('btn1');
+		    btn0.onclick = function() {
+			nova.dom.removeClass(document.body, 'test');
+		    };
+		    btn1.onclick = function() {
+			nova.dom.addClass(document.body, 'test');
+		    };
+		</script>
+	</body>
+</html>
