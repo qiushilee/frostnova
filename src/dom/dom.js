@@ -13,15 +13,24 @@ nova.dom = {};
  * @param {string} class 名称
  */
 nova.dom.hasClass = function(elt, cls) {
-    var eltCls = elt.className.split(" "),
-	i,
-	len;
-
-    for (i = 0, len = eltCls.length; i < len; i++) {
-	if (eltCls[i] === cls) {
-	    return true;
+    if (typeof elt !== 'object') {
+	if (console.error) {
+	    console.error('no first argument.', 'type must use nodeList.');
 	}
-    }
+	return false;
+    } else if (typeof cls !== 'string') {
+	if (console.error) {
+	    console.error('no second argument.', 'type must use string.');
+	}
+	return false;
+    } else {
+	//检查elements是否已经包含classname
+	if (elt.className.match(cls)) {
+	    return true;
+	} else {
+	    return false;
+	}
+    }    
 };
 
 
@@ -43,6 +52,9 @@ nova.dom.addClass = function(elt, cls) {
  * @param string} class 名称
  */
 nova.dom.removeClass = function(elt, cls) {
+    if (elt.className.length > cls.length) {
+	cls = " " + cls;
+    }
     elt.className = elt.className.replace(cls, "");
 };
 
