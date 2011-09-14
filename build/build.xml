@@ -27,22 +27,7 @@
 
 	<!-- 复制 JS 文件 -->
 	<copy todir="${build.dir}" overwrite="true" flatten="false">
-	    <fileset dir="${src.dir}/frostnova">
-		<include name="*.js" />
-	    </fileset>
-	    <fileset dir="${src.dir}/load">
-		<include name="*.js" />
-	    </fileset>
-	    <fileset dir="${src.dir}/ajax">
-		<include name="*.js" />
-	    </fileset>
-	    <fileset dir="${src.dir}/dom">
-		<include name="*.js" />
-	    </fileset>
-	    <fileset dir="${src.dir}/ua">
-		<include name="*.js" />
-	    </fileset>
-	    <fileset dir="${src.dir}/event">
+	    <fileset dir="${src.dir}">
 		<include name="*.js" />
 	    </fileset>
 	    <fileset dir="${src.dir}/ui">
